@@ -1,0 +1,79 @@
+{
+  "preset": "custom",
+  "density": "comfortable",
+  "segmentLayout": [
+    {
+      "id": "brand",
+      "visible": false
+    },
+    {
+      "id": "activity",
+      "visible": true
+    },
+    {
+      "id": "metrics",
+      "visible": true
+    },
+    {
+      "id": "performance",
+      "visible": false
+    },
+    {
+      "id": "context",
+      "visible": true
+    },
+    {
+      "id": "model",
+      "visible": true
+    },
+    {
+      "id": "git",
+      "visible": false
+    },
+    {
+      "id": "statuses",
+      "visible": true
+    },
+    {
+      "id": "menu",
+      "visible": false
+    }
+  ],
+  "sidebarPanelLayout": [
+    {
+      "id": "agent",
+      "visible": false
+    },
+    {
+      "id": "activity",
+      "visible": true
+    },
+    {
+      "id": "alerts",
+      "visible": true
+    },
+    {
+      "id": "todos",
+      "visible": true
+    },
+    {
+      "id": "context",
+      "visible": true
+    },
+    {
+      "id": "workspace",
+      "visible": false
+    },
+    {
+      "id": "usage",
+      "visible": true
+    },
+    {
+      "id": "tools",
+      "visible": false
+    }
+  ],
+  "showSidebarOnStartup": true,
+  "showSidebarToolNames": true,
+  "completionNotifications": false
+}

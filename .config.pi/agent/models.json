@@ -1,0 +1,23 @@
+{
+  "providers": {
+    "llamacpp": {
+      "baseUrl": "http://llamacpp:8081/v1",
+      "api": "openai-completions",
+      "apiKey": "none",
+      "models": [
+        {
+          "id": "fast",
+          "contextWindow": 128512
+        },
+        {
+          "id": "reasoning",
+          "contextWindow": 32000
+        },
+        {
+          "id": "coder",
+          "contextWindow": 32000
+        }
+      ]
+    }
+  }
+}

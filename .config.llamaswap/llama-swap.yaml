@@ -1,0 +1,134 @@
+healthCheckTimeout: 600
+models:
+  # ============================================================
+  # RAPIDE
+  # ============================================================
+  fast:
+    name: "Ling-3 tiny"
+    description: "Fast model / simple coding / summaries / quick tasks"
+    cmd: >
+      llama-server
+      --model /models/fast/Ling-3.0-tiny-Q4_K_M.gguf
+      --host 0.0.0.0
+      --port ${PORT}
+      --alias fast
+      --ctx-size 128512
+      --n-gpu-layers 99
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+      --jinja
+      --threads 6
+      --parallel 2
+      --load-mode mmap+mlock
+      --kv-unified 
+      --flash-attn on
+      --reasoning-preserve
+      --batch-size 2048
+      --ubatch-size 2048
+      --temp 0.6
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+    capabilities:
+      in:
+        - text
+      out:
+        - text
+      tools: true
+      context: 128512
+    concurrencyLimit: 1
+  # ============================================================
+  # CODING PRINCIPAL
+  # ============================================================
+  coder:
+    name: "Qwen3-Coder 30B A3B"
+    description: "Coding / Angular / Go / Rust / Bash / agents"
+    cmd: >
+      llama-server
+      --model /models/coder/qwen3-coder-30b-a3b-instruct-q4_k_m-00001-of-00004.gguf
+      --host 0.0.0.0
+      --port ${PORT}
+      --alias coder
+      --ctx-size 32000
+      --n-gpu-layers 99
+      --n-cpu-moe 22
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+      --jinja
+      --threads 6 
+      --parallel 2
+      --load-mode mmap+mlock
+      --kv-unified 
+      --flash-attn on
+      --reasoning-preserve
+      --batch-size 2048
+      --ubatch-size 1024
+      --temp 0.6
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+    capabilities:
+      in:
+        - text
+      out:
+        - text
+      tools: true
+      context: 32000
+    concurrencyLimit: 1
+  # ============================================================
+  # RAISONNEMENT / MODELE PRINCIPAL
+  # ============================================================
+  reasoning:
+    name: "Ornith 1.5 35B A3B"
+    description: "Reasoning / architecture / analysis / general purpose"
+    cmd: >
+      llama-server
+      --model /models/reasoning/Ornith-1.5-35B-A3B-Q4_K_M.gguf
+      --host 0.0.0.0
+      --port ${PORT}
+      --alias reasoning
+      --ctx-size 32000
+      --n-gpu-layers 99
+      --n-cpu-moe 23
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+      --jinja
+      --threads 6
+      --parallel 2
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
+      --load-mode mmap+mlock
+      --kv-unified 
+      --flash-attn on
+      --reasoning-preserve
+      --batch-size 2048
+      --ubatch-size 2048
+      --temp 0.6
+      --top-p 0.95
+      --top-k 20
+      --min-p 0.0
+    capabilities:
+      in:
+        - text
+        - image
+      out:
+        - text
+      tools: true
+      context: 32000
+    concurrencyLimit: 1
+# ================================================================
+# ROUTAGE
+# ================================================================
+routing:
+  router:
+    use: group
+  settings:
+    groups:
+      # Un seul gros LLM à la fois
+      llm:
+        members:
+          - fast
+          - coder
+          - reasoning
+        swap: true
+        exclusive: true
